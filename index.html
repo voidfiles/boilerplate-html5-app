@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+  <meta http-equiv='Content-type' content='text/html; charset=utf-8' />
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
+  <link rel="stylesheet" href="assets/stylesheets/options.css" type="text/css" media="all" />
+  <link rel="stylesheet" href="assets/stylesheets/popup.css" type="text/css" media="all" />
+  <script src="assets/javascripts/jquery-1.4.4.js"></script>
+  <script src="assets/javascripts/jquery.base64.min.js"></script>
+  <script src="assets/javascripts/date.js"></script>
+  <script src="assets/javascripts/simplenote-js/src/simplenote.js"></script>
+  <script src="assets/javascripts/background.js"></script>
+  <body>
+      <div class="title">Cross Platform Simplenote Client <a href="#about" class="more-info">more info</a></div>
+      <div id="index">
+        <form>
+          <div id="toolbar">
+            <input type="text" id="q">
+            <input type="button" id="search" value="Search">
+            <input type="button" id="new" value="New">
+          </div>
+        </form>
+        <ul id="notes"></ul>
+      </div>
+      <div id="note" class="hidden">
+        <form>
+          <div id="toolbar">
+            <input type="submit" id="save" value="Save">
+            <input type="submit" id="destroy" value="Delete">
+          </div>
+          <textarea class="hidden"></textarea>
+        </form>
+      </div>
+      <div class="options-section" style="display:none;">
+        <div id="instructions">Enter your Simplenote account information</div>
+        <div id="inputs">
+          <input type="email" placeholder="Email Address" id="email">
+          <input type="password" placeholder="Password" id="password">
+        </div>
+        <div id="message">
+          <a class="save-button" href="#">Save</a>
+        </div> 
+      </div>
+      <div id="loader"></div>
+      <div id="status"></div>
+      <div id="about" class="promo">Compiled By <a href="http://alexkessinger.net">Alex Kessinger</a>(@<a href="http://twitter.com/voidfiles">voidfiles<a>) <a href="http://alexkessinger.net">Even More Info</a></div>
+  </body>
+</html>
