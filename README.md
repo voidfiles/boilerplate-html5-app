@@ -1,1 +1,1 @@
-
+A simple cross-platform simplenote client
