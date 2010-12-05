@@ -55,9 +55,12 @@
 
 function SimpleNote() {
   
+
+    
   var $ = window.jQuery,
   
 
+  
   /**
   * The simplenote-js version number.
   *
@@ -69,7 +72,7 @@ function SimpleNote() {
   
   _version = "1.0.1",
   
-  _local = (window.location.protocol === "file:") ? true : false,
+  _local = (window.location.protocol === "file:" || window.location.protocol === "app:") ? true : false,
   
   /**
   * After a successful login, this variable holds the account email address
@@ -150,6 +153,11 @@ function SimpleNote() {
     log.history.push( arguments );
     if ( window.console && _debugEnabled ) {
       console.log( Array.prototype.slice.call( arguments ) );
+    }
+    if(air && typeof(air.Introspector.Console.log) !== "undefined"  && _debugEnabled ){
+        console = {
+            log: air.Introspector.Console.log
+        };
     }
   }
 
@@ -336,24 +344,7 @@ function SimpleNote() {
   */
   
   function _parseTimestamp( string ) {
-    if ( !( /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}(\.\d{6}|)$/.test( string ) ) ) {
-      throw "ArgumentError: string must be in the correct form (for example, '2008-12-18 04:04:20.554442') seen" + string;
-    }
-    
-    var seg = string.split( /[^\d]/g ),
-      d = new Date();
-    
-    d.setUTCFullYear( seg[ 0 ] );
-    d.setUTCMonth( seg[ 1 ] - 1 );
-    d.setUTCDate( seg[ 2 ] );
-    d.setUTCHours( seg[ 3 ] );
-    d.setUTCMinutes( seg[ 4 ] );
-    d.setUTCSeconds( seg[ 5 ] );
-    try{
-        d.setUTCMilliseconds( seg[ 6 ].substr( 0, 3 ) );
-    } catch(e){}
-
-    return d;
+      return Date.parse(string.split(".")[0]).getTime();
   }
   
   
@@ -411,7 +402,7 @@ function SimpleNote() {
       } else {
         _token = $.trim( result);
       }
-      config.success();
+      config.success(_token);
     }
     
     function __cbError( code ) {
@@ -494,7 +485,6 @@ function SimpleNote() {
     
     function __cbSuccess( result ) {
       var res = (result.response) ? result.response : result;
-      console.log(res);
       $.each( res, function( i, note ) {
         note.modify = _parseTimestamp( note.modify );
         res[ i ] = note;
@@ -576,7 +566,7 @@ function SimpleNote() {
     log( "_searchNotes", query );
     
     function __cbSuccess( result ) {
-      var res = (result.response.Response) ? result.response.Response : result,
+      var res = (result.response && result.response.Response) ? result.response.Response : result,
         hash = {
           totalRecords: Number( res.totalRecords ),
           notes: []
@@ -593,8 +583,18 @@ function SimpleNote() {
 
       config.success( hash );
     }
-    
-    _queryYQL( "_searchNotes", query, __cbSuccess, config.error, this );
+        
+    if(_local){
+        _queryDirect(  "_searchNotes", "/search", "GET", {
+            email: _email,
+            auth: _token,
+            query: config.query,
+            results: config.maxResults,
+            offset: config.offset
+          }, __cbSuccess, config.error, this, true, true);
+    } else {
+        _queryYQL( "_searchNotes", query, __cbSuccess, config.error, this );
+    }
   }
   
   
@@ -693,7 +693,7 @@ function SimpleNote() {
   */
   
   function _createNote( obj ) {
-    _throwUnlessLoggedIn();
+    //_throwUnlessLoggedIn();
     _validateRetrievalConfig( obj );
 
     if ( !obj.body ) {
@@ -705,24 +705,34 @@ function SimpleNote() {
         success: function( json ) {},
         error: function( errorString ) {}
       }, obj );
-    
     config.body = $.trim( config.body );
-      
+    
+    var params = $.param({ email: _email, auth: _token }),
+      data = $.base64.encode( config.body ),
+      dataParams = {data:data};
+          
     query = [
       "USE '", _yqlTableURL, "' AS ", _yqlTableName, "; ",
       "SELECT * FROM ", _yqlTableName, " ",
-      "WHERE path='/note?", $.param({ email: _email, auth: _token }), "' ",
-      "AND data='", $.base64.encode( config.body ), "' ",
+      "WHERE path='/note?", params, "' ",
+      "AND data='", data, "' ",
       "AND method='post'"
     ].join( "" );
     
     log( "_createNote", query );
     
     function __cbSuccess( result ) {
-      config.success( $.trim( result.response ) );
+        var res = (result.response) ? result.response : result;
+        config.success( $.trim( res ) );
     }
     
-    _queryYQL( "_createNote", query, __cbSuccess, config.error, this );
+    if(_local){
+        _queryDirect(  "_createNote", "/note?"+$.param({ email: _email, auth: _token }), "POST", data, __cbSuccess, config.error, this,false, true);
+    } else {
+        _queryYQL( "_createNote", query, __cbSuccess, config.error, this );
+    }
+    
+    
   }  // _createNote
 
 
@@ -741,7 +751,7 @@ function SimpleNote() {
   */
   
   function _updateNote( obj ) {
-    _throwUnlessLoggedIn();
+    //_throwUnlessLoggedIn();
     _validateRetrievalConfig( obj );
 
     if ( !obj.body ) {
@@ -759,22 +769,32 @@ function SimpleNote() {
       }, obj );
       
     config.body = $.trim( config.body );
+    
+    var params = $.param({ email: _email, auth: _token, key: config.key }),
+        data = $.base64.encode( config.body );
 
     query = [
       "USE '", _yqlTableURL, "' AS ", _yqlTableName, "; ",
       "SELECT * FROM ", _yqlTableName, " ",
-      "WHERE path='/note?", $.param({ email: _email, auth: _token, key: config.key }), "' ",
-      "AND data='", $.base64.encode( config.body ), "' ",
+      "WHERE path='/note?", params, "' ",
+      "AND data='", data, "' ",
       "AND method='post'"
     ].join( "" );
     
     log( "_updateNote", query );
     
     function __cbSuccess( result ) {
-      config.success( $.trim( result.response ) );
+        var res = (result.response) ? result.response : result;
+        config.success( $.trim( res ) );
     }
     
-    _queryYQL( "_updateNote", query, __cbSuccess, config.error, this );
+    if(_local){
+        _queryDirect(  "_updateNote", "/note?"+params, "POST", data, __cbSuccess, config.error, this,false, true);
+    } else {
+        _queryYQL( "_updateNote", query, __cbSuccess, config.error, this );
+    }
+    
+    
   }  // _updateNote
 
   
@@ -795,7 +815,7 @@ function SimpleNote() {
   */
   
   function _deleteNote( obj ) {
-    _throwUnlessLoggedIn();
+    //_throwUnlessLoggedIn();
     _validateRetrievalConfig( obj );
 
     if ( !obj.key ) {
@@ -825,10 +845,22 @@ function SimpleNote() {
     log( "_deleteNote", query );
     
     function __cbSuccess( result ) {
-      config.success( $.trim( result.response ) );
+        var res = (result.response) ? result.response : result;
+        config.success( $.trim( res ) );
     }
     
-    _queryYQL( "_deleteNote", query, __cbSuccess, config.error, this );
+    if(_local){
+        _queryDirect(  "_deleteNote", "/delete", "GET", {
+            email: _email,
+            auth: _token,
+            key: config.key,
+            dead: ( config.permanently === true ) ? "1" : ""
+          }, __cbSuccess, config.error, this,true, true);
+    } else {
+        _queryYQL( "_deleteNote", query, __cbSuccess, config.error, this );
+    }
+    
+    
   }  // _deleteNote
 
 
@@ -1014,6 +1046,14 @@ function SimpleNote() {
     };
   };
   
+  this.setAuthDetails = function(email, token) {
+      _token = token;
+      _email = email;
+      
+      return true;
+  };
+  
+  this.local = _local;
   
   /**
   * Sets the Open Data table used in all YQL requests.  Usually, you'll want

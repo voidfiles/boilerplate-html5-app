@@ -1,59 +1,178 @@
 (function($, SimpleNote){
-    
-    var SN = new SimpleNote();
-    SN.enableDebug( true );   // because we're curious
-    
-    var  noteNoKey = function(){
-            $(document).trigger("noteNoKey", [{text:""}]);
+    if(air && typeof(air.Introspector.Console.log) !== "undefined"){
+        window.console = {
+            log: air.Introspector.Console.log
         };
+    }
+    var SN = new SimpleNote(),
+        storage_options = {
+            adaptor: (typeof(localStorage) !== "undefined") ? "dom" : (typeof(window.runtime) !== "undefined") ? "air-async" : (typeof(navigator.store) !== "undefined") ? "blackberry" : "dom",
+            table: "appdata"
+        },
+        storage = new Lawnchair(storage_options),
+        offlineQue = new Lawnchair(storage_options),
+        genericError = function(message){
+            console.log(message);
+        },
+        noteNoKey = function(){
+            $(document).trigger("noteNoKey", [{text:""}]);
+        },
+        getNote = function(callbackEvent){
+            return function(data, key, bust){
+                var success = false,
+                    args = [];
+                    
+                if(key){
+                    args.push(key);
+                } 
+                if(!data || bust){
+                    success = function( noteHash ) {
+                      noteHash.ret = new Date().getTime();
+                      noteHash.key = key;
+                      storage.save(noteHash);
+                      delete noteHash.ret;
+                      args.push(noteHash);
+                      $(document).trigger(callbackEvent, args);
+                    };
+                } else {
+                    noteHash = data;
+                    var reted = noteHash.ret,
+                        yesterday = Date.now().add(-1).days(),
+                        ret = new Date(reted);
+                    delete noteHash.ret;
+                    args.push(noteHash);
+
+                    $(document).trigger(callbackEvent, args);
+                    if(yesterday > ret){
+                        success = function( noteHash ) {
+                            noteHash.ret = new Date().getTime();
+                            noteHash.key = key;
+                            storage.save(noteHash);
+                        };
+                    }
+                }
+                if(success){
+                    SN.retrieveNote({
+                      key: key,
+                      success:success,
+                      error: genericError
+                    });
+                }
+            };
+        },
+        noteInfoHandler = getNote("noteKey"),
+        noteGotHandler = getNote("noteGot");
+        
+    window.Storage = storage;
+    SN.enableDebug( true );   // because we're curious
+    window.SN = SN;
     $(document).bind("login", function(e){
-        if(localStorage.email && localStorage.password) {
-            SN.auth({
-              email: localStorage.email,
-              password: localStorage.password,
-              success: function() {
-                $(document).trigger("loginGood");
-                // >> true
-              },
-              error: function( code ) {
-                console.error( "Authentication error: " + code );
-                $(document).trigger("loginBad");
-              }
-            });
-        }
+        storage.get("emailpassword", function(emailpassword){
+            if(emailpassword){
+                storage.get("authcode", function(data){
+                    var success = false;
+                   if(data){
+                       var yesterday = Date.now().add(-1).days(),
+                           reted = new Date(data.ret);
+                       console.log(data);
+                       SN.setAuthDetails(emailpassword.email, data.token);
+                       $(document).trigger("loginGood");
+                       if(yesterday > reted){
+                           success = function(data) {
+                                var new_data = {
+                                    key: "authcode",
+                                    token: data,
+                                    ret: new Date().getTime()
+                                };
+                                console.log("saving", new_data);
+                                storage.save(new_data);
+                            };
+                       }
+                       
+                   } else {
+                       success = function(data) {
+                            var new_data = {
+                                key: "authcode",
+                                token: data,
+                                ret: new Date().getTime()
+                            };
+                            console.log("saving", new_data, SN);
+                            storage.save(new_data);
+                          $(document).trigger("loginGood");
+                        };
+                   }
+                    
+                  if(success){
+                      SN.auth({
+                        email: emailpassword.email,
+                        password: emailpassword.password,
+                        success: success,
+                        error: function( code ) {
+                          console.log( "Authentication error: " + code );
+                          $(document).trigger("loginBad");
+                        }
+                      });
+                  }
+                });
+
+                return true;
+            }
+            $(document).trigger("loginBad");
+            return false;
+        });
     });
     
     
-    $(document).bind("index", function(e){
-        if(!localStorage.indexData){
-            SN.retrieveIndex({
-              success: function( resultsArray ) {
-                  localStorage.indexDataRet = new Date().getTime();
-                  localStorage.indexData = JSON.stringify(resultsArray);
-                  $(document).trigger("indexData", [resultsArray]);
-              },
-              error: function( code ) {
-                  console.error( code );
-              }
-            });
-        } else {
-            $(document).trigger("indexData", [JSON.parse(localStorage.indexData)]);
-            var yesterday = Date.now().add(-1).days(),
-                ret = new Date(localStorage.indexDataRet);
-            
-            if(yesterday > ret){
-                SN.retrieveIndex({
-                  success: function( resultsArray ) {
-                      $(document).bind("finishedIndex", function(e){
-                          localStorage.indexData = JSON.stringify(resultsArray);
-                      });
-                  },
-                  error: function( code ) {
-                      console.error( code );
-                  }
-                });
-            }
-        }
+    $(document).bind("index", function(e, bust){
+        storage.get("indexData", function(data){
+            var success = false;
+            if(!data || bust){
+                success = function( resultsArray ) {
+                    var indexData = {
+                            key: "indexData",
+                            data: resultsArray,
+                            ret: new Date().getTime()
+                        };
+                    
+                    storage.save(indexData);
+                    $(document).trigger("indexData", [resultsArray]);
+                };
+            } else {
+               var resultsArray = data.data,
+                   yesterday = Date.now().add(-1).days(),
+                   ret = new Date(data.ret);
+                   
+               $(document).trigger("indexData", [resultsArray]);
+               if(yesterday > ret){
+                   success = function( resultsArray ) {
+                       $(document).bind("finishedIndex", function(e){
+                           var indexData = {
+                                   key: "indexData",
+                                   data: resultsArray,
+                                   ret: new Date().getTime()
+                               };
+                           storage.save(indexData);
+                       });
+                   };
+               }
+                   
+           }
+           if(success){
+               try{
+                   SN.retrieveIndex({
+                       success:success,
+                       error: genericError
+                   });
+               } catch(e){
+                   console.log(e);
+                   storage.remove("authcode");
+                   $(document).trigger("login");
+               }
+           }
+           
+        });
+        
+        return false;
     });
     
     
@@ -70,165 +189,88 @@
             console.log(resultsHash);
             $(document).trigger("indexData", [resultsHash.notes]);
           },
-          error: function( code ) {
-            console.error( code );
-          }
+          error: genericError
         });
         return false;
     });
-    
-    
+        
     $(document).bind("noteInfo", function(e, key){ 
-        var cache_key = "note:" + key;
-        if(!localStorage[cache_key]){
-            SN.retrieveNote({
-              key: key,
-              success: function( noteHash ) {
-                noteHash.ret = new Date().getTime();
-                localStorage[cache_key] = JSON.stringify(noteHash);
-                $(document).trigger("noteKey", [key, noteHash]);
-                // >> {
-                // >>   body: "my example note",
-                // >>   key: "[SimpleNote-internal ID string]",
-                // >>   modifydate: [Date object],
-                // >>   createdate: [Date object],
-                // >>   deleted: false
-                // >> }
-              },
-              error: function( code ) {
-                console.error( code );
-              }
-            });
-        } else {
-            noteHash = JSON.parse(localStorage[cache_key]);
-            var reted = noteHash.ret,
-                yesterday = Date.now().add(-1).days(),
-                ret = new Date(reted);
-            delete noteHash.ret;
-            $(document).trigger("noteKey", [key, noteHash]);
-
-            if(yesterday > ret){
-                SN.retrieveNote({
-                  key: key,
-                  success: function( noteHash ) {
-                    localStorage[cache_key] = JSON.stringify(noteHash);
-                    // >> {
-                    // >>   body: "my example note",
-                    // >>   key: "[SimpleNote-internal ID string]",
-                    // >>   modifydate: [Date object],
-                    // >>   createdate: [Date object],
-                    // >>   deleted: false
-                    // >> }
-                  },
-                  error: function( code ) {
-                    console.error( code );
-                  }
-                });
-            }
-        }
-        
-        
+        storage.get(key, function(data){ noteInfoHandler(data, key); });
+        return true;
     });
     $(document).bind("note", function(e, key){ 
         if (key === undefined) {
              $(document).trigger("noteGot", [key, {}]);
-             return;
+             return true;
         }
-        var cache_key = "note:" + key;
-        if(!localStorage[cache_key]){
-            SN.retrieveNote({
-              key: key,
-              success: function( noteHash ) {
-                localStorage[cache_key] = JSON.stringify(noteHash);
-                $(document).trigger("noteGot", [key, noteHash]);
-                // >> {
-                // >>   body: "my example note",
-                // >>   key: "[SimpleNote-internal ID string]",
-                // >>   modifydate: [Date object],
-                // >>   createdate: [Date object],
-                // >>   deleted: false
-                // >> }
-              },
-              error: function( code ) {
-                console.error( code );
-              }
-            });
-        } else {
-            $(document).trigger("noteGot", [key, JSON.parse(localStorage[cache_key])]);
-            SN.retrieveNote({
-              key: key,
-              success: function( noteHash ) {
-                localStorage[cache_key] = JSON.stringify(noteHash);
-                // >> {
-                // >>   body: "my example note",
-                // >>   key: "[SimpleNote-internal ID string]",
-                // >>   modifydate: [Date object],
-                // >>   createdate: [Date object],
-                // >>   deleted: false
-                // >> }
-              },
-              error: function( code ) {
-                console.error( code );
-              }
-            });
-        }        
+        storage.get(key, function(data){ noteGotHandler(data, key); });
+        return true;
     });
     $(document).bind("destroy", function(e, key){ 
         SN.deleteNote({
           key: key,
           success: function( noteID ) {
             //console.info( noteID );
+            console.log("need to remoe", noteID);
+            Storage.remove(noteID );
+            $(document).trigger('index',[true]); 
             $(document).trigger("destroyDone");
-            // >> "[SimpleNote-internal ID string]"
+            
           },
           error: function( code ) {
-            console.error( code );
+            console.log( code );
           }
         });
     });
     $(document).bind("update", function(e, key, data){
         
+        try{
         if(!key){
             SN.createNote({
               body: data,
               success: function( noteID ) {
-                console.info( noteID );
-                $(document).trigger("updateDone",[ noteID]);
-                // >> "[new SimpleNote-internal ID string]"
+                $(document).trigger("updateDone",[ noteID, true]);
               },
               error: function( code ) {
-                console.error( code );
+                console.log( code );
               }
             });
         } else {
-            SN.updateNote({
-              key: key,
-              body: data,
-              success: function( noteID ) {
-                //console.info( noteID );
-                 $(document).trigger("updateDone",[ noteID]);
-                // >> "[SimpleNote-internal ID string]"
-              },
-              error: function( code ) {
-                console.error( code );
-              }
-            });
+            
+                SN.updateNote({
+                  key: key,
+                  body: data,
+                  success: function( noteID ) {
+                    //console.info( noteID );
+                     $(document).trigger("updateDone",[ noteID]);
+                    // >> "[SimpleNote-internal ID string]"
+                  },
+                  error: function( code ) {
+                    console.log( code );
+                  }
+                });
+
         }
+        } catch(e){
+          if(e != "AuthError"){
+              throw(e);
+          }
+          console.log(e);
+          storage.remove("authcode");
+          $(document).trigger("login");
+        };
     });
     
-    $(document).ready(function() {
-      if (localStorage) {
-        $("#email").val(localStorage.email);
-        $("#password").val(localStorage.password);
-      }
-    });
+
     
     $(document).bind("options", function(e){
         $(".options-section").show();
-        if (localStorage) {
-          $("#email").val(localStorage.email);
-          $("#password").val(localStorage.password);
-        }
+        storage.get("emailpassword", function(data){
+            if(data){
+                $("#email").val(data.email);
+                $("#password").val(data.password);
+            }
+        });
         return false;
     });
 
@@ -238,18 +280,15 @@
      */
     $(".save-button").live('click', function(e) {
       e.preventDefault();
-      if (localStorage) {
-          localStorage.email = $("#email").val();
-          localStorage.password = $("#password").val();	
-      }
+      var data = {
+              key:"emailpassword",
+              email: $("#email").val(),
+              password: $("#password").val()
+          },
+          status = $("#status");
+      
+      storage.save(data);
 
-      var status = $("#status");
-      status.show();
-      if (localStorage && localStorage.email && localStorage.password) {
-        status.html("Account saved");
-      } else {
-        status.html("Save failed");
-      }
 
       $(document).trigger("login");
       status.hide();
@@ -268,12 +307,14 @@
         "<a class='show_options' href='#options'>options page</a>";
     // Log in on page load
     $(document).ready(function() {
-      if ((!localStorage.email) || (!localStorage.password)) {
-        var message = "Please " + signUpLink + " for a Simplenote account and enter your credentials on the " + optionsLink + ".";
-        displayStatusMessage(message);
-      } else {
-          $(document).trigger("login");
-      }
+        storage.get("emailpassword", function(data){
+            if(data){
+                $(document).trigger("login");
+            } else {
+                var message = "Please " + signUpLink + " for a Simplenote account and enter your credentials on the " + optionsLink + ".";
+                displayStatusMessage(message);
+            }
+        });
     });
     
     $(document).bind("loginGood",function(){
@@ -320,6 +361,7 @@
         $('div#index').show();
         $('#loader').hide();
         var count = 0;
+        data = _.sortBy(data, function(item){ return item.modify; }).reverse();
         for(var i=0; i < data.length; i++) {
           if (data[i].deleted) {
             var note = $('#' + data[i].key);
@@ -334,14 +376,24 @@
         }
         $(document).trigger("finishedIndex");
     });
+    
+
+    
     function showIndex(query) {
+        var bust = false;
+        if(query && typeof(query) !== "string") {
+            bust = query;
+            query = false;
+        }
+
       $('#loader').show();
       $("#toolbar").show();
       if(query) {        
         $(document).trigger('search',[query]);
         $('#notes').empty();
       } else {
-         $(document).trigger('index'); 
+          console.log("bust", bust);
+         $(document).trigger('index', [bust]); 
       }
       
       
@@ -383,10 +435,10 @@
       
       
     }
-    $(document).bind("updateDone", function(e, data){
+    $(document).bind("updateDone", function(e, data, bust){
         $('div#note textarea').hide();
         $('div#note').hide();
-        showIndex();
+        showIndex(bust);
     });
     function updateNote(key) {
       $('div#note div#toolbar input').attr('disabled', 'disabled');
@@ -401,7 +453,7 @@
     $(document).bind("destroyDone", function(e){
         $('div#note textarea').hide();
         $('div#note').hide();
-        showIndex(); 
+        showIndex(true); 
     });
 
     function destroyNote(key) {

@@ -10,16 +10,17 @@
   font-size: inherit;
   padding: 8px;
   width: 18em;
+  padding-left:0;
+  margin:5px 5px 5px 0;
 }
 
 .options-section {
   background: -webkit-gradient(linear, left top, left bottom, from(#F8F8F8), to(#E2E2E2));
   border: 2px solid #8D8D8D;
   border-radius: 6px;
-  -webkit-box-orient: vertical;
-  -webkit-box-shadow: 3px 3px 8px #A7A7A7;
   padding: .5em;
-  max-width: 18.5em;  
+  max-width: 18.5em; 
+  margin:.5em auto; 
 }
 
 .options-section div {
@@ -44,4 +45,8 @@
   font-size: inherit;
   opacity: 0;
   -webkit-transition: opacity .5s linear;
+}
+
+#about {
+    padding:.5em;
 }

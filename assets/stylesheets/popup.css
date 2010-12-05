@@ -23,6 +23,16 @@ div.abstract {
     padding-top:10px;
     border-top:1px solid #ddd;
 }
+
+#status {
+    width:94%;
+    margin:0 auto;
+    padding:10px 0 10px 0;
+}
+#about {
+    background:#eee;
+}
+
 .title {
     font-size:90%;
     text-align:center;

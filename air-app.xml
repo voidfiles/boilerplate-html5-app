@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<application xmlns="http://ns.adobe.com/air/application/2.5"> 
+    <id>net.alexkessinger.html5.simplenote</id> 
+    <versionNumber>0.1</versionNumber> 
+    <filename>SimpleNote</filename> 
+    <initialWindow> 
+        <content>index.html</content> 
+        <visible>true</visible> 
+        <width>380</width> 
+        <height>460</height> 
+    </initialWindow> 
+</application>

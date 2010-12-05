@@ -4,9 +4,21 @@
   <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
   <link rel="stylesheet" href="assets/stylesheets/options.css" type="text/css" media="all" />
   <link rel="stylesheet" href="assets/stylesheets/popup.css" type="text/css" media="all" />
+  <script type="text/javascript" charset="utf-8">
+    if(window.runtime){
+        document.write("<scr"+"ipt src='assets/javascripts/AIRIntrospector.js'></scr"+"ipt>");
+    }
+  </script>
   <script src="assets/javascripts/jquery-1.4.4.js"></script>
   <script src="assets/javascripts/jquery.base64.min.js"></script>
+  <script src="assets/javascripts/underscore-min.js"></script>
   <script src="assets/javascripts/date.js"></script>
+  <script src="assets/javascripts/adaptors/LawnchairAdaptorHelpers.js"></script>
+  <script src="assets/javascripts/adaptors/AIRSqliteAsyncAdaptor.js"></script>
+  <script src="assets/javascripts/adaptors/BlackBerryPersistentStorageAdaptor.js"></script>
+  <script src="assets/javascripts/adaptors/DOMStorageAdaptor.js"></script>
+  <script src="assets/javascripts/adaptors/CookieAdaptor.js"></script>
+  <script src="assets/javascripts/Lawnchair.js"></script>
   <script src="assets/javascripts/simplenote-js/src/simplenote.js"></script>
   <script src="assets/javascripts/background.js"></script>
   <body>
@@ -33,7 +45,7 @@
       <div class="options-section" style="display:none;">
         <div id="instructions">Enter your Simplenote account information</div>
         <div id="inputs">
-          <input type="email" placeholder="Email Address" id="email">
+          <input type="email" placeholder="Email Address" id="email" autocorrect="off">
           <input type="password" placeholder="Password" id="password">
         </div>
         <div id="message">

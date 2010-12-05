@@ -29,11 +29,7 @@ var Simplenote = {
       error: function(a){
           $("#loader").hide();
           $("#index").hide();
-          console.log("got a 401");
           $("#status").html("Got a 401");
-          if(localStorage){
-              localStorage.clear();
-          }
           document.cookie = "";
           $(document).trigger("options");
       }
