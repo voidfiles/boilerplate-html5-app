@@ -8,6 +8,7 @@
     if(window.runtime){
         document.write("<scr"+"ipt src='assets/javascripts/AIRIntrospector.js'></scr"+"ipt>");
     }
+    if (typeof console == "undefined" || typeof console.log == "undefined") var console = { log: function() {} };
   </script>
   <script src="assets/javascripts/jquery-1.4.4.js"></script>
   <script src="assets/javascripts/jquery.base64.min.js"></script>

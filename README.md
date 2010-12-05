@@ -11,7 +11,7 @@ The point is trying to be extremely cross-platform, its a [work in progress](htt
 
 # Browsers
 
-Using YQL where applicable, we can create an in browser client. This should work on any modern browser, it has been tested in. 
+Using YQL where applicable, we can create an in browser client. This should work on any modern browser, it has been tested in. You can find the web version at <http://html5.alexkessinger.net/simplenote>
 
     * Chrome
     * Safari 

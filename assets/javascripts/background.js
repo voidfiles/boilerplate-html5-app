@@ -1,5 +1,6 @@
+
 (function($, SimpleNote){
-    if(air && typeof(air.Introspector.Console.log) !== "undefined"){
+    if(typeof(air) !== "undefined" && typeof(air.Introspector.Console.log) !== "undefined"){
         window.console = {
             log: air.Introspector.Console.log
         };
@@ -347,8 +348,9 @@
 
     $(document).bind("noteKey", function(e, key, text){
         text = text.body;
-        var lines = text.split("\n", 10).filter(function(line) { return ( line.length > 0 ); });
-        $('#' + key).html(
+        var lines = _.select(text.split("\n", 10), function(line) { return ( line.length > 0 ); }),
+            elem_id = '#' + key;
+        jQuery(elem_id).html(
           lines[0] + "<div class='abstract'>" + lines.slice(1,3).map(function(element) { 
               var shrt = element.substr(0, 67); 
               return ( shrt.length + 3 < element.length ? shrt + "..." : element );
