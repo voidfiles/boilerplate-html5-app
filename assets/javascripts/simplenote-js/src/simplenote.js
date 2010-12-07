@@ -270,7 +270,7 @@ function SimpleNote() {
           req.dataType = "json";
       }
       log("about to do a query");
-      $.ajax(req);
+      $.fetchYQL(req);
   };
   /**
   * Proxy method abstracting most YQL calls.

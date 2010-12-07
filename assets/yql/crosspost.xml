@@ -6,7 +6,7 @@
     <sampleQuery><![CDATA[
       SELECT * FROM {table} WHERE
       url='https://simple-note.appspot.com/api/login'
-      AND postData="[base64-encoded request parameters]"
+      AND postData="post data"
       AND method='[get/post]'
     ]]></sampleQuery>
     <documentationURL></documentationURL>

@@ -27,7 +27,7 @@
             snData;
           
           if ( method === "post" ) {
-            snRequest = y.rest( "https://simple-note.appspot.com/api" + path );
+            snRequest = y.rest( url );
             snData = snRequest
               .timeout( 5000 )
               .accept( "text/plain, application/json" )
@@ -35,7 +35,7 @@
               .post( data );
           }        
           else {
-            snRequest = y.rest( "https://simple-note.appspot.com/api" + path + "?" + data );
+            snRequest = y.rest( url );
             snData = snRequest
               .timeout( 5000 )
               .accept( "text/plain, application/json" )
