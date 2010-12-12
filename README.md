@@ -1,4 +1,4 @@
-A simple cross-platform simplenote client
+A simple cross-platform, progressively enhanced, web app. 
 
 The point is trying to be extremely cross-platform, its a [work in progress](http://alexkessinger.net/story/boilerplate-html5-app) lot's of rough edges. 
 
@@ -20,6 +20,8 @@ Using YQL where applicable, we can create an in browser client. This should work
     
     
 # References 
+
+Before it was oblique stratgies card deck this started as a simplenote client, there is still tag that had the initial work in it, but the point is to make something cross-platform, so I switched to do an oblique strategies thing. 
 
 The basic HTML, and main frame works is from  a [Simplenote client for chrome](https://github.com/janne/simplenote). I then swapped in a bunch of stuff from the [phonegap-start](https://github.com/phonegap/phonegap-start) package to be compliant. I moved a bunch from the background.html into index.html.
 
