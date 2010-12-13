@@ -4,7 +4,7 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
     <link rel="stylesheet" href="assets/stylesheets/options.css" type="text/css" media="all" />
     <link rel="stylesheet" href="assets/stylesheets/popup.css" type="text/css" media="all" />
-    <title>Oblique Strategies Draw</title>
+    <title>Oblique Strategies Card Deck</title>
     <script type="text/javascript" charset="utf-8">
         if(window.runtime){
             document.write("<scr"+"ipt src='assets/javascripts/AIRIntrospector.js'></scr"+"ipt>");
@@ -13,11 +13,16 @@
             var console = { log: function() {} }
         };
         document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
+        
     </script>
     <script src="assets/javascripts/jquery-1.4.4.js"></script>
     <script src="assets/javascripts/underscore-min.js"></script>
-    <script src="assets/javascripts/background.js"></script>
     <style type="text/css" media="screen">
+        body, html {
+            width:100%;
+            height:100%;
+            overflow:hidden;
+        }
         body {
             font-size:1em/14px;
             width:100%;
@@ -25,9 +30,23 @@
             background-color:#252525;
             color:#f1f1f1;
             text-shadow:2px #fff;
+            font-family:Helvetica;
+            
+        }
+        a {
+            color:#ffe;
+        }
+        a:hover {
+            background-color:#bbb;
+            text-decoration:none;
+        }
+        h1 {
+            font-size: 4em;
         }
         .title {
             text-align: center;
+            color:#111;
+            height:5%;
         }
         li {
             display:none;
@@ -43,24 +62,65 @@
         .container {
             padding:0 10px 0 10px;
         }
-        li.active {
+        .js li.active {
             display:block;
             text-align:center;
-            width:100%;
-            height:4.5em;
-            margin:0 auto;
+            width:98%;
+            height:90%;
+            margin:2.5% auto;
             background-color:#111;
+            color:#e0d08f;
             vertical-align:center;
             font-size:200%;
             margin-top:2em;
-            box-shadow:;
+            border-radius:10px;
+            -moz-border-radius:10px;
+            -webkit-border-radius:10px;
+            -webkit-box-shadow: 2px 2px 2px #333;
+            -moz-box-shadow: 2px 2px 2px #333;
+            box-shadow: 2px 2px 2px #333;
+            padding:1em 1% 2em 1%;
         }
+        .no-js li {
+            display:inline;
+        }
+        .no-js .note {
+            display:none;
+        }
+        .note {
+            text-decoration:underline;
+            color:#333;
+        }
+        #info {
+            text-decoration:none;
+            display:block;
+            width:20px;
+            height:20px;
+            background-color:#eee;
+            color:#222;
+            border-radius:11px;
+            -moz-border-radius:11px;
+            -webkit-border-radius:11px;
+            line-height:20px;
+            text-indent:7px;
+            font-family:Georgia;
+            font-weight:bold;
+            position:absolute;
+            border:2px solid #000;
+            right:5px;
+            bottom:5px;
+        }
+        .js #info { display:none;}
     </style>
     <body>
-        <h1 class="title">Oblique Strategies Draw <br> <a href="#/click_to_draw">Click to draw</a></h1>
+        <h1 class="title">Oblique Strategies<br><a class="note" onClick="function(){return true;}">Click to draw a card</a></h1>
         <div class="container">
             <ul>
-                <li class="description"><p>Oblique Strategies (subtitled over one hundred worthwhile dilemmas) is a set of published cards created by Brian Eno and Peter Schmidt first published in 1975, and is now in its fifth, open ended, edition. Prior to Oblique Strategies, Schmidt created "The Thoughts Behind the Thoughts" [1] in 1970, a similar collection of "55 sentences", in an edition of 100.</p><cite><a href="http://en.wikipedia.org/wiki/Oblique_Strategies">Oblique Strategies - Wikipedia</a></cite></li>
+                <li id="information" class="description">
+                    <p>Oblique Strategies (subtitled over one hundred worthwhile dilemmas) is a set of published cards created by Brian Eno and Peter Schmidt first published in 1975, and is now in its fifth, open ended, edition. Prior to Oblique Strategies, Schmidt created "The Thoughts Behind the Thoughts" [1] in 1970, a similar collection of "55 sentences", in an edition of 100.</p>
+                    <cite><a href="http://en.wikipedia.org/wiki/Oblique_Strategies" target="_blank">Oblique Strategies - Wikipedia</a></cite>
+                    <p>App cobbled together by <a href="http://alexkessinger.net" target="_blank">Alex Kessinger</a>(@<a href="http://twitter.com/voidfiles">voidfiles</a>)
+                </li>
                 <li>(Organic) machinery</li>
                 <li>A line has two sides</li>
                 <li>A very small object -Its centre</li>
@@ -72,7 +132,7 @@
                 <li>Adding on</li>
                 <li>Allow an easement (an easement is the abandonment of a stricture)</li>
                 <li>Always first steps</li>
-                <li class="active">Always give yourself credit for having more than personality (given by Arto Lindsay)</li>
+                <li>Always give yourself credit for having more than personality (given by Arto Lindsay)</li>
                 <li>Always the first steps</li>
                 <li>Are there sections? Consider transitions</li>
                 <li>Ask people to work against their better judgement</li>
@@ -169,7 +229,7 @@
                 <li>Magnify the most difficult details</li>
                 <li>Make a blank valuable by putting it in an exquisite frame</li>
                 <li>Make a sudden, destructive unpredictable action; incorporate</li>
-                <li class="active">Make an exhaustive list of everything you might do and do the last thing on the list</li>
+                <li>Make an exhaustive list of everything you might do and do the last thing on the list</li>
                 <li>Make it more sensual</li>
                 <li>Make what's perfect more human</li>
                 <li>Mechanicalise something idiosyncratic</li>
@@ -190,7 +250,7 @@
                 <li>Retrace your steps</li>
                 <li>Revaluation (a warm feeling)</li>
                 <li>Reverse</li>
-                <li class="active">Short circuit (example; a man eating peas with the idea that they will improve his virility shovels them straight into his lap)</li>
+                <li>Short circuit (example; a man eating peas with the idea that they will improve his virility shovels them straight into his lap)</li>
                 <li>Shut the door and listen from outside</li>
                 <li>Simple subtraction</li>
                 <li>Simply a matter of work</li>
@@ -241,6 +301,36 @@
                 <li>You don't have to be ashamed of using your own ideas</li>
                 <li>Your mistake was a hidden intention</li>
             </ul>
+            <a id="info" href="#information" class="info" onClick="function(){return true;}">i</a>
         </div>
+        <script type="text/javascript" charset="utf-8">
+            $(function(){
+                
+                var starter = function(e){
+                        $(".description").hide();
+                        $("body").click(pick_card);
+                        pick_card();
+                    },
+                    pick_card = function(e){
+                        if(e){ e.preventDefault();}
+                        if(e && e.target.id == "info"){
+                            $("li").removeClass("active");
+                            $(".description").show();
+                            $("#info").hide();
+                            $("body").unbind("click");
+                            $("body").one("click", starter);
+                            return true;
+                        }
+                        var elements = $("li:not(.description):not(.active)"),
+                            randomnumber = Math.floor(Math.random()*elements.length + 1);
+                        $("li").removeClass("active");
+                        elements.eq(randomnumber).addClass("active");
+                        $("#info").show();
+                };
+                $("body").one("click", starter);
+                window.starter = starter;
+                window.pick_card = pick_card;
+            })
+        </script>
     </body>
 </html>
