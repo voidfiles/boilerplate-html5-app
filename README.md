@@ -8,6 +8,9 @@ The point is trying to be extremely cross-platform, its a [work in progress](htt
     * Native Wrappers
     * TV's 
 
+# Platforms Supported
+
+* [Opera Mini 4.1] (http://my.opera.com/operamini/blog/2008/05/13/opera-mini-4-1-final)
 
 # Browsers
 
