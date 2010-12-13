@@ -10,21 +10,18 @@ The point is trying to be extremely cross-platform, its a [work in progress](htt
 
 # Platforms Supported
 
-* [Opera Mini 4.1] (http://my.opera.com/operamini/blog/2008/05/13/opera-mini-4-1-final)
+* [Opera Mini 4.1](http://my.opera.com/operamini/blog/2008/05/13/opera-mini-4-1-final)
+* [Opera Mini 5](http://www.opera.com/mobile/demo/)
+* [lynx](http://lynx.isc.org/)
+* iPhone
+* Chrome
+* Firefox
 
-# Browsers
-
-Using YQL where applicable, we can create an in browser client. This should work on any modern browser, it has been tested in. You can find the web version at <http://html5.alexkessinger.net/simplenote>
-
-    * Chrome
-    * Safari 
-    * Firefox
-    
-    
+        
     
 # References 
 
-Before it was oblique stratgies card deck this started as a simplenote client, there is still tag that had the initial work in it, but the point is to make something cross-platform, so I switched to do an oblique strategies thing. 
+Before it was oblique strategies card deck this started as a simplenote client, there is still tag that had the initial work in it, but the point is to make something cross-platform, so I switched to do an oblique strategies thing. 
 
 The basic HTML, and main frame works is from  a [Simplenote client for chrome](https://github.com/janne/simplenote). I then swapped in a bunch of stuff from the [phonegap-start](https://github.com/phonegap/phonegap-start) package to be compliant. I moved a bunch from the background.html into index.html.
 

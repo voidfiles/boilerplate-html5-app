@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="no-js">
     <meta http-equiv='Content-type' content='text/html; charset=utf-8' />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">  
     <link rel="stylesheet" href="assets/stylesheets/options.css" type="text/css" media="all" />
     <link rel="stylesheet" href="assets/stylesheets/popup.css" type="text/css" media="all" />
     <title>Oblique Strategies Card Deck</title>
@@ -21,71 +21,87 @@
         body, html {
             width:100%;
             height:100%;
-            overflow:hidden;
+            min-height:100%;
         }
         body {
-            font-size:1em/14px;
+            font-size:14px;
             width:100%;
             overflow:hidden;
-            background-color:#252525;
             color:#f1f1f1;
             text-shadow:2px #fff;
+            text-align: center;
             font-family:Helvetica;
+            background: #252525; /* old browsers */
+            font-size:1em;
+            background: -moz-linear-gradient(top, #252525 0%, #333333 100%); /* firefox */
+
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#252525), color-stop(100%,#333333)); /* webkit */
+
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* ie */
             
+        }
+        ul {
+            border-top:1px solid #222;
         }
         a {
             color:#ffe;
+            font-weight:bold;
         }
-        a:hover {
-            background-color:#bbb;
-            text-decoration:none;
-        }
-        h1 {
-            font-size: 4em;
-        }
-        .title {
-            text-align: center;
+        .title, #info {
             color:#111;
-            height:5%;
+        }
+        #information h2 {
+            text-align:center;
+            padding-bottom:10px;
+        }
+        .title{
+            padding:2px 0 4px 0;
+            line-height:1.2;
+            background: #ffffff; /* old browsers */
+            font-size:1em;
+            border-bottom:1px solid #111;
+            background: -moz-linear-gradient(top, #ffffff 0%, #e5e5e5 100%); /* firefox */
+
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(100%,#e5e5e5)); /* webkit */
+
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 ); /* ie */
+        }
+        .container {
+            padding:0 10px 0 10px;
         }
         li {
             display:none;
             padding:10px 0 15px 0;
         }
-        li.description, li.active, .no-js li {
+        li.description, li.active, .no-js .note {
             display:block;
+        }
+        li.description {
+            text-align:left;
         }
         cite {
             display:block;
             text-align:right;
+            padding:.5em 0 1em 0;
         }
-        .container {
-            padding:0 10px 0 10px;
-        }
+
         .js li.active {
             display:block;
-            text-align:center;
             width:98%;
-            height:90%;
-            margin:2.5% auto;
+            margin:10px auto 5px auto;
             background-color:#111;
             color:#e0d08f;
-            vertical-align:center;
             font-size:200%;
-            margin-top:2em;
             border-radius:10px;
             -moz-border-radius:10px;
             -webkit-border-radius:10px;
             -webkit-box-shadow: 2px 2px 2px #333;
             -moz-box-shadow: 2px 2px 2px #333;
             box-shadow: 2px 2px 2px #333;
-            padding:1em 1% 2em 1%;
+            padding:.5em 1% 1em 1%;
         }
         .no-js li {
             display:inline;
-        }
-        .no-js .note {
-            display:none;
         }
         .note {
             text-decoration:underline;
@@ -94,15 +110,15 @@
         #info {
             text-decoration:none;
             display:block;
+            text-align:center;
             width:20px;
             height:20px;
             background-color:#eee;
-            color:#222;
             border-radius:11px;
             -moz-border-radius:11px;
             -webkit-border-radius:11px;
             line-height:20px;
-            text-indent:7px;
+            text-indent:1px;
             font-family:Georgia;
             font-weight:bold;
             position:absolute;
@@ -113,13 +129,15 @@
         .js #info { display:none;}
     </style>
     <body>
-        <h1 class="title">Oblique Strategies<br><a class="note" onClick="function(){return true;}">Click to draw a card</a></h1>
+        <h1 class="title">Oblique&nbsp;Strategies</h1>
         <div class="container">
             <ul>
                 <li id="information" class="description">
-                    <p>Oblique Strategies (subtitled over one hundred worthwhile dilemmas) is a set of published cards created by Brian Eno and Peter Schmidt first published in 1975, and is now in its fifth, open ended, edition. Prior to Oblique Strategies, Schmidt created "The Thoughts Behind the Thoughts" [1] in 1970, a similar collection of "55 sentences", in an edition of 100.</p>
-                    <cite><a href="http://en.wikipedia.org/wiki/Oblique_Strategies" target="_blank">Oblique Strategies - Wikipedia</a></cite>
-                    <p>App cobbled together by <a href="http://alexkessinger.net" target="_blank">Alex Kessinger</a>(@<a href="http://twitter.com/voidfiles">voidfiles</a>)
+                    <h2><a onClick="function(){return true;}">Click to draw a card</a></h2>
+                    <p>Oblique Strategies is a set of published cards created by Brian Eno and Peter Schmidt to aide the user in any creative pursuit.</p>
+                    <cite>- <a href="http://en.wikipedia.org/wiki/Oblique_Strategies" target="_blank">Oblique Strategies<br>Wikipedia</a></cite>
+                    
+                    <p>App cobbled together by <a href="http://alexkessinger.net" target="_blank">Alex Kessinger</a> (@<a href="http://twitter.com/voidfiles">voidfiles</a>)
                 </li>
                 <li>(Organic) machinery</li>
                 <li>A line has two sides</li>
@@ -308,17 +326,25 @@
                 
                 var starter = function(e){
                         $(".description").hide();
-                        $("body").click(pick_card);
+                        $("body").bind("click touchstart", function(e){
+                            if(e && e.type == "touchstart"){
+                                $("body").unbind("click");
+                            };
+                            pick_card(e)
+                        });
                         pick_card();
                     },
                     pick_card = function(e){
                         if(e){ e.preventDefault();}
+                        if(e && e.type == "touchstart"){
+                            $("body").unbind("click");
+                        }
                         if(e && e.target.id == "info"){
                             $("li").removeClass("active");
                             $(".description").show();
                             $("#info").hide();
-                            $("body").unbind("click");
-                            $("body").one("click", starter);
+                            $("body").unbind("click touchstart");
+                            $("body").one("click touchstart", starter);
                             return true;
                         }
                         var elements = $("li:not(.description):not(.active)"),
@@ -327,7 +353,7 @@
                         elements.eq(randomnumber).addClass("active");
                         $("#info").show();
                 };
-                $("body").one("click", starter);
+                $("body").one("click touchstart", starter);
                 window.starter = starter;
                 window.pick_card = pick_card;
             })
