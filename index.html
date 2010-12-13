@@ -20,7 +20,7 @@
     <style type="text/css" media="screen">
         body, html {
             width:100%;
-            height:100%;
+            height:90%;
             min-height:100%;
         }
         body {
@@ -126,10 +126,13 @@
             right:5px;
             bottom:5px;
         }
+        .click-to-draw {
+            color:#aaa;
+        }
         .js #info, .click-to-draw { display:none;}
     </style>
     <body>
-        <h1 class="title">Oblique&nbsp;Strategies <a class="click-to-draw">onClick="function(){return true;}">Click to draw</a></h1>
+        <h1 class="title">Oblique&nbsp;Strategies <a class="click-to-draw" onClick="function(){return true;}">Click&nbsp;to&nbsp;draw</a></h1>
         <div class="container">
             <ul>
                 <li id="information" class="description">
@@ -327,7 +330,7 @@
                 var starter = function(e){
                         $(".description").hide();
                         $(".click-to-draw").show();
-                        $("body").bind("click touchstart", function(e){
+                        $("body").bind("click", function(e){
                             if(e && e.type == "touchstart"){
                                 $("body").unbind("click");
                             };
@@ -345,8 +348,8 @@
                             $(".description").show();
                             $("#info").hide();
                             $(".click-to-draw").hide();
-                            $("body").unbind("click touchstart");
-                            $("body").one("click touchstart", starter);
+                            $("body").unbind("click");
+                            $("body").one("click", starter);
                             return true;
                         }
                         var elements = $("li:not(.description):not(.active)"),
@@ -355,9 +358,10 @@
                         elements.eq(randomnumber).addClass("active");
                         $("#info").show();
                 };
-                $("body").one("click touchstart", starter);
+                $("body").one("click", starter);
                 window.starter = starter;
                 window.pick_card = pick_card;
+                document.body.onclick = function () {};
             })
         </script>
     </body>
