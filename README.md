@@ -17,6 +17,25 @@ The point is trying to be extremely cross-platform, its a [work in progress](htt
 * Chrome
 * Firefox
 
+
+# Screenshots 
+
+## Opera Mini 4
+
+<p>
+    <img  src="http://dl.dropbox.com/u/133599/Screenshots/g4f1.png" alt=" " />
+    <img  src="http://dl.dropbox.com/u/133599/Screenshots/d0q0.png" alt=" " />
+        
+</p>
+
+## Opera Mini 5
+
+<p>
+    <img  src="http://dl.dropbox.com/u/133599/Screenshots/c5pb.png" alt=" " />
+    <img  src="http://dl.dropbox.com/u/133599/Screenshots/78iz.png" alt=" " />
+        
+</p>
+    
         
     
 # References 
