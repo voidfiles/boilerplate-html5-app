@@ -4,10 +4,10 @@
 	id		= "net.alexkessinger.html5.simplenote"
 	version 	= "1.0.0">
 
-	<name>Cross Platform Simplenote Client</name>
+	<name>Oblique</name>
 
 	<description>
-		A cross platform simplenote
+		A card deck of useful strategies for building creative projects.
 	</description>
 
 	<author href="http://alexkessinger.net"
