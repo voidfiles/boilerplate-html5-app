@@ -22,7 +22,7 @@
 		<gap:platform name="blackberry" project="widgets"/>
 	</gap:platforms>
 
-	<icon src="assets/images/touch_icon.png" gap:role="default" />
+	<icon src="icon.png" gap:role="default" />
 
 	<feature name="http://api.phonegap.com/1.0/geolocation"/>
 	<feature name="http://api.phonegap.com/1.0/network"/>
