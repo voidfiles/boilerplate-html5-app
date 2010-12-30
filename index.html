@@ -149,9 +149,9 @@
                 <li id="information" class="description">
                     <h2><a onclick="jQuery.noop();">Click to draw a card</a></h2>
                     <p>Oblique Strategies is a set of published cards created by Brian Eno and Peter Schmidt to aide the user in any creative pursuit.</p>
-                    <cite>- <a href="http://en.wikipedia.org/wiki/Oblique_Strategies" target="_blank">Oblique Strategies<br>Wikipedia</a></cite>
+                    <cite>- <a href="http://en.wikipedia.org/wiki/Oblique_Strategies" class="noop" target="_blank">Oblique Strategies<br>Wikipedia</a></cite>
                     
-                    <p>App cobbled together by <a href="http://alexkessinger.net" target="_blank">Alex Kessinger</a> (@<a href="http://twitter.com/voidfiles">voidfiles</a>)
+                    <p>App cobbled together by <a href="http://alexkessinger.net" class="noop" target="_blank">Alex Kessinger</a> (@<a href="http://twitter.com/voidfiles" class="noop" target="_blank" >voidfiles</a>)
                 </li>
                 <li id="card-1">(Organic) machinery</li>
                 <li id="card-2">A line has two sides</li>
@@ -333,22 +333,30 @@
                 <li id="card-178">You don't have to be ashamed of using your own ideas</li>
                 <li id="card-179">Your mistake was a hidden intention</li>
             </ul>
-            <a id="info" href="#/" class="info">i</a>
+            <a id="info" href="#/" class="info noop">i</a>
         </div>
         <script type="text/javascript" charset="utf-8">
-jQuery.noop()
             $(function(){
                 if (window.PalmSystem) {
                     window.PalmSystem.stageReady();
                 }
+                console.log("Here we are");
                 var starter = function(e){
+                        var target = $(e.target);
+                        if(target.hasClass("noop")){
+                            return true;
+                        }
                         $(".description").hide();
                         $(".click-to-draw").show();
+                        console.log("starter");
                         $("body").bind("click", function(e){
-                            if(e && e.target.id != "info"){ 
+                            var target = $(e.target);
+                            console.log("has noop",target.hasClass("noop"));
+                            if(e && !target.hasClass("noop")){ 
                                 e.preventDefault();
                                 pick_card(e);
                             }
+                            return true;
                         });
                         pick_card();
                     },
@@ -377,11 +385,11 @@ jQuery.noop()
                         });
 
                     });
-                $("body").one("click", starter);
+                
                 
                 document.body.onclick = function () {};
                 
-                app.run();
+                app.run("#/");
             })
         </script>
     </body>

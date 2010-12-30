@@ -1,10 +1,9 @@
 CACHE MANIFEST
 
 index.html
-assets/stylesheets/options.css
-assets/stylesheets/popup.css
-assets/javascripts/jquery-1.4.4.js
-assets/javascripts/underscore-min.js
+assets/javascripts/jquery.1.4.4.js
+assets/javascripts/underscore.min.js
+assets/javascripts/sammy.js
 assets/images/default.png
 assets/images/touch_icon.png
 assets/javascripts/AIRIntrospector.js
