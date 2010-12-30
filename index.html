@@ -57,7 +57,7 @@
             color:#ffe;
             font-weight:bold;
         }
-        .title, #info {
+        .title, .info {
             color:#111;
         }
         #information h2 {
@@ -117,15 +117,11 @@
             text-decoration:underline;
             color:#333;
         }
-        #info {
+        a.info {
             text-decoration:none;
             display:block;
             text-align:center;
-            width:20px;
-            height:20px;
             background-color:#eee;
-            line-height:20px;
-            text-indent:1px;
             font-family:Georgia;
             font-weight:bold;
             position:absolute;
@@ -135,11 +131,11 @@
         .click-to-draw {
             color:#aaa;
         }
-        .js #info, .click-to-draw { display:none;}
+        .js .info, .click-to-draw { display:none;}
     </style>
     
     <body>
-        <h1 class="title">Oblique&nbsp;Strategies <a class="click-to-draw" onclick="jQuery.noop();">Click&nbsp;to&nbsp;draw</a></h1>
+        <h1 class="title">Oblique&nbsp;Strategies <a class="click-to-draw" onclick="jQuery.noop();">Click&nbsp;to&nbsp;draw</a><a href="#/" class="info noop" onclick="jQuery.noop();">i</a></h1>
         <div class="container">
             <ul>
                 <li id="information" class="description">
@@ -329,7 +325,7 @@
                 <li id="card-178">You don't have to be ashamed of using your own ideas</li>
                 <li id="card-179">Your mistake was a hidden intention</li>
             </ul>
-            <a id="info" href="#/" class="info noop">i</a>
+            
         </div>
         <script type="text/javascript" charset="utf-8">
             if (window.PalmSystem) {
@@ -365,13 +361,13 @@
                             $(".click-to-draw").show();
                             $("li").removeClass("active");
                             $(selector).addClass("active");
-                            $("#info").show();
+                            $(".info").show();
                         });
 
                         this.get('#/', function() {
                             $("li").removeClass("active");
                             $(".description").show();
-                            $("#info").hide();
+                            $(".info").hide();
                             $(".click-to-draw").hide();
                             $("body").unbind("click");
                             $("body").one("click", starter);
