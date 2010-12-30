@@ -14,12 +14,17 @@
         if(window.runtime){
             document.write("<scr"+"ipt src='assets/javascripts/AIRIntrospector.js'></scr"+"ipt>");
         }
+        if (window.PalmSystem) { 
+            document.write("<scr"+"ipt src='/usr/palm/frameworks/mojo/mojo.js' x-mojo-version='1'></scr"+"ipt>");
+        }
         if (typeof console == "undefined" || typeof console.log == "undefined"){
             var console = { log: function() {} }
         };
         document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/,'js');
         
     </script>
+    
+    
     <script src="assets/javascripts/jquery.1.4.4.js"></script>
     <script src="assets/javascripts/underscore.min.js"></script>
     <style type="text/css" media="screen">
@@ -332,7 +337,9 @@
         </div>
         <script type="text/javascript" charset="utf-8">
             $(function(){
-                
+                if (window.PalmSystem) {
+                    window.PalmSystem.stageReady();
+                }
                 var starter = function(e){
                         $(".description").hide();
                         $(".click-to-draw").show();
