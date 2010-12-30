@@ -25,6 +25,7 @@
     
     <script src="assets/javascripts/jquery.1.4.4.js"></script>
     <script src="assets/javascripts/underscore.min.js"></script>
+    <script src="assets/javascripts/sammy.js"></script>
     <style type="text/css" media="screen">
     * { margin: 0; padding: 0 }
         body, html {
@@ -140,201 +141,202 @@
         }
         .js #info, .click-to-draw { display:none;}
     </style>
-
+    
     <body>
-        <h1 class="title">Oblique&nbsp;Strategies <a class="click-to-draw" onClick="function(){return true;}">Click&nbsp;to&nbsp;draw</a></h1>
+        <h1 class="title">Oblique&nbsp;Strategies <a class="click-to-draw" onclick="jQuery.noop();">Click&nbsp;to&nbsp;draw</a></h1>
         <div class="container">
             <ul>
                 <li id="information" class="description">
-                    <h2><a onClick="function(){return true;}">Click to draw a card</a></h2>
+                    <h2><a onclick="jQuery.noop();">Click to draw a card</a></h2>
                     <p>Oblique Strategies is a set of published cards created by Brian Eno and Peter Schmidt to aide the user in any creative pursuit.</p>
                     <cite>- <a href="http://en.wikipedia.org/wiki/Oblique_Strategies" target="_blank">Oblique Strategies<br>Wikipedia</a></cite>
                     
                     <p>App cobbled together by <a href="http://alexkessinger.net" target="_blank">Alex Kessinger</a> (@<a href="http://twitter.com/voidfiles">voidfiles</a>)
                 </li>
-                <li>(Organic) machinery</li>
-                <li>A line has two sides</li>
-                <li>A very small object -Its centre</li>
-                <li>Abandon desire</li>
-                <li>Abandon normal instructions</li>
-                <li>Abandon normal instruments</li>
-                <li>Accept advice</li>
-                <li>Accretion</li>
-                <li>Adding on</li>
-                <li>Allow an easement (an easement is the abandonment of a stricture)</li>
-                <li>Always first steps</li>
-                <li>Always give yourself credit for having more than personality (given by Arto Lindsay)</li>
-                <li>Always the first steps</li>
-                <li>Are there sections? Consider transitions</li>
-                <li>Ask people to work against their better judgement</li>
-                <li>Ask your body</li>
-                <li>Assemble some of the elements in a group and treat the group</li>
-                <li>Assemble some of the instruments in a group and treat the group</li>
-                <li>Balance the consistency principle with the inconsistency principle</li>
-                <li>Be dirty</li>
-                <li>Be extravagant</li>
-                <li>Be less critical</li>
-                <li>Be less critical more often</li>
-                <li>Breathe more deeply</li>
-                <li>Bridges -build -burn</li>
-                <li>Cascades</li>
-                <li>Change ambiguities to specifics</li>
-                <li>Change instrument roles</li>
-                <li>Change nothing and continue with immaculate consistency</li>
-                <li>Change specifics to ambiguities</li>
-                <li>Children's voices -speaking -singing</li>
-                <li>Cluster analysis</li>
-                <li>Consider different fading systems</li>
-                <li>Consider transitions</li>
-                <li>Consult other sources -promising -unpromising</li>
-                <li>Convert a melodic element into a rhythmic element</li>
-                <li>Courage!</li>
-                <li>Cut a vital connection</li>
-                <li>Decorate, decorate</li>
-                <li>Define an area as 'safe' and use it as an anchor</li>
-                <li>Destroy nothing; Destroy the most important thing</li>
-                <li>Discard an axiom</li>
-                <li>Disciplined self-indulgence</li>
-                <li>Disconnect from desire</li>
-                <li>Discover your formulas and abandon them</li>
-                <li>Display your talent</li>
-                <li>Distorting time</li>
-                <li>Do nothing for as long as possible</li>
-                <li>Do something boring</li>
-                <li>Do something sudden, destructive and unpredictable</li>
-                <li>Do the last thing first</li>
-                <li>Do the washing up</li>
-                <li>Do the words need changing?</li>
-                <li>Do we need holes?</li>
-                <li>Don't avoid what is easy</li>
-                <li>Don't be afraid of things because they're easy to do</li>
-                <li>Don't be frightened of cliches</li>
-                <li>Don't be frightened to display your talents</li>
-                <li>Don't break the silence</li>
-                <li>Don't stress one thing more than another</li>
-                <li>Emphasise repetitions</li>
-                <li>Emphasize differences</li>
-                <li>Emphasize the flaws</li>
-                <li>Faced with a choice, do both (given by Dieter Rot)</li>
-                <li>Feed the recording back out of the medium</li>
-                <li>Feedback recordings into an acoustic situation</li>
-                <li>Fill every beat with something</li>
-                <li>Find a safe part and use it as an anchor</li>
-                <li>From nothing to more than nothing</li>
-                <li>Get your neck massaged</li>
-                <li>Ghost echoes</li>
-                <li>Give the game away</li>
-                <li>Give way to your worst impulse</li>
-                <li>Go outside. Shut the door.</li>
-                <li>Go slowly all the way round the outside</li>
-                <li>Go to an extreme, move back to a more comfortable place</li>
-                <li>Honor thy error as a hidden intention</li>
-                <li>How would someone else do it?</li>
-                <li>How would you have done it?</li>
-                <li>Humanise something free of error</li>
-                <li>Idiot glee (?)</li>
-                <li>Imagine the piece as a moving chain or caterpillar</li>
-                <li>Imagine the piece as a set of disconnected events</li>
-                <li>In total darkness, or in a very large room, very quietly</li>
-                <li>Infinitesimal gradations</li>
-                <li>Intentions -nobility of -humility of -credibility of</li>
-                <li>Into the impossible</li>
-                <li>Is it finished?</li>
-                <li>Is something missing?</li>
-                <li>Is the intonation correct?</li>
-                <li>Is the style right?</li>
-                <li>Is the tuning appropriate?</li>
-                <li>Is the tuning intonation correct?</li>
-                <li>Is there something missing?</li>
-                <li>It is quite possible (after all)</li>
-                <li>It is simply a matter or work</li>
-                <li>Just carry on</li>
-                <li>Left channel, right channel, centre channel</li>
-                <li>Listen in total darkness, or in a very large room, very quietly</li>
-                <li>Listen to the quiet voice</li>
-                <li>Look at a very small object, look at its centre</li>
-                <li>Look at the order in which you do things</li>
-                <li>Look closely at the most embarrassing details and amplify them</li>
-                <li>Lost in useless territory</li>
-                <li>Lowest common denominator check -single beat -single note -single riff</li>
-                <li>Magnify the most difficult details</li>
-                <li>Make a blank valuable by putting it in an exquisite frame</li>
-                <li>Make a sudden, destructive unpredictable action; incorporate</li>
-                <li>Make an exhaustive list of everything you might do and do the last thing on the list</li>
-                <li>Make it more sensual</li>
-                <li>Make what's perfect more human</li>
-                <li>Mechanicalise something idiosyncratic</li>
-                <li>Move towards the unimportant</li>
-                <li>Mute and continue</li>
-                <li>Not building a wall; making a brick</li>
-                <li>Once the search is in progress, something will be found</li>
-                <li>Only a part, not the whole</li>
-                <li>Only one element of each kind</li>
-                <li>Overtly resist change</li>
-                <li>Pae White's non-blank graphic metacard</li>
-                <li>Put in earplugs</li>
-                <li>Question the heroic approach</li>
-                <li>Remember quiet evenings</li>
-                <li>Remove a restriction</li>
-                <li>Remove specifics and convert to ambiguities</li>
-                <li>Repetition is a form of change</li>
-                <li>Retrace your steps</li>
-                <li>Revaluation (a warm feeling)</li>
-                <li>Reverse</li>
-                <li>Short circuit (example; a man eating peas with the idea that they will improve his virility shovels them straight into his lap)</li>
-                <li>Shut the door and listen from outside</li>
-                <li>Simple subtraction</li>
-                <li>Simply a matter of work</li>
-                <li>Slow preparation, fast execution</li>
-                <li>Spectrum analysis</li>
-                <li>State the problem in words as simply as possible</li>
-                <li>Take a break</li>
-                <li>Take away the important parts</li>
-                <li>Tape your mouth (given by Ritva Saarikko)</li>
-                <li>The inconsistency principle</li>
-                <li>The most important thing is the thing most easily forgotten</li>
-                <li>The tape is now the music</li>
-                <li>Think - inside the work -outside the work</li>
-                <li>Think of the radio</li>
-                <li>Tidy up</li>
-                <li>Towards the insignificant</li>
-                <li>Trust in the you of now</li>
-                <li>Try faking it (from Stewart Brand)</li>
-                <li>Turn it upside down</li>
-                <li>Twist the spine</li>
-                <li>Use 'unqualified' people</li>
-                <li>Use an old idea</li>
-                <li>Use an unacceptable colour</li>
-                <li>Use cliches</li>
-                <li>Use fewer notes</li>
-                <li>Use filters</li>
-                <li>Use something nearby as a model</li>
-                <li>Use your own ideas</li>
-                <li>Voice your suspicions</li>
-                <li>Water</li>
-                <li>What are the sections sections of? Imagine a caterpillar moving</li>
-                <li>What are you really thinking about just now? Incorporate</li>
-                <li>What context would look right?</li>
-                <li>What is the reality of the situation?</li>
-                <li>What is the simplest solution?</li>
-                <li>What mistakes did you make last time?</li>
-                <li>What to increase? What to reduce? What to maintain?</li>
-                <li>What were you really thinking about just now?</li>
-                <li>What would your closest friend do?</li>
-                <li>What wouldn't you do?</li>
-                <li>When is it for?</li>
-                <li>Where is the edge?</li>
-                <li>Which parts can be grouped?</li>
-                <li>Work at a different speed</li>
-                <li>Would anyone want it?</li>
-                <li>You are an engineer</li>
-                <li>You can only make one dot at a time</li>
-                <li>You don't have to be ashamed of using your own ideas</li>
-                <li>Your mistake was a hidden intention</li>
+                <li id="card-1">(Organic) machinery</li>
+                <li id="card-2">A line has two sides</li>
+                <li id="card-3">A very small object -Its centre</li>
+                <li id="card-4">Abandon desire</li>
+                <li id="card-5">Abandon normal instructions</li>
+                <li id="card-6">Abandon normal instruments</li>
+                <li id="card-7">Accept advice</li>
+                <li id="card-8">Accretion</li>
+                <li id="card-9">Adding on</li>
+                <li id="card-10">Allow an easement (an easement is the abandonment of a stricture)</li>
+                <li id="card-11">Always first steps</li>
+                <li id="card-12">Always give yourself credit for having more than personality (given by Arto Lindsay)</li>
+                <li id="card-13">Always the first steps</li>
+                <li id="card-14">Are there sections? Consider transitions</li>
+                <li id="card-15">Ask people to work against their better judgement</li>
+                <li id="card-16">Ask your body</li>
+                <li id="card-17">Assemble some of the elements in a group and treat the group</li>
+                <li id="card-18">Assemble some of the instruments in a group and treat the group</li>
+                <li id="card-19">Balance the consistency principle with the inconsistency principle</li>
+                <li id="card-20">Be dirty</li>
+                <li id="card-21">Be extravagant</li>
+                <li id="card-22">Be less critical</li>
+                <li id="card-23">Be less critical more often</li>
+                <li id="card-24">Breathe more deeply</li>
+                <li id="card-25">Bridges -build -burn</li>
+                <li id="card-26">Cascades</li>
+                <li id="card-27">Change ambiguities to specifics</li>
+                <li id="card-28">Change instrument roles</li>
+                <li id="card-29">Change nothing and continue with immaculate consistency</li>
+                <li id="card-30">Change specifics to ambiguities</li>
+                <li id="card-31">Children's voices -speaking -singing</li>
+                <li id="card-32">Cluster analysis</li>
+                <li id="card-33">Consider different fading systems</li>
+                <li id="card-34">Consider transitions</li>
+                <li id="card-35">Consult other sources -promising -unpromising</li>
+                <li id="card-36">Convert a melodic element into a rhythmic element</li>
+                <li id="card-37">Courage!</li>
+                <li id="card-38">Cut a vital connection</li>
+                <li id="card-39">Decorate, decorate</li>
+                <li id="card-40">Define an area as 'safe' and use it as an anchor</li>
+                <li id="card-41">Destroy nothing; Destroy the most important thing</li>
+                <li id="card-42">Discard an axiom</li>
+                <li id="card-43">Disciplined self-indulgence</li>
+                <li id="card-44">Disconnect from desire</li>
+                <li id="card-45">Discover your formulas and abandon them</li>
+                <li id="card-46">Display your talent</li>
+                <li id="card-47">Distorting time</li>
+                <li id="card-48">Do nothing for as long as possible</li>
+                <li id="card-49">Do something boring</li>
+                <li id="card-50">Do something sudden, destructive and unpredictable</li>
+                <li id="card-51">Do the last thing first</li>
+                <li id="card-52">Do the washing up</li>
+                <li id="card-53">Do the words need changing?</li>
+                <li id="card-54">Do we need holes?</li>
+                <li id="card-55">Don't avoid what is easy</li>
+                <li id="card-56">Don't be afraid of things because they're easy to do</li>
+                <li id="card-57">Don't be frightened of cliches</li>
+                <li id="card-58">Don't be frightened to display your talents</li>
+                <li id="card-59">Don't break the silence</li>
+                <li id="card-60">Don't stress one thing more than another</li>
+                <li id="card-61">Emphasise repetitions</li>
+                <li id="card-62">Emphasize differences</li>
+                <li id="card-63">Emphasize the flaws</li>
+                <li id="card-64">Faced with a choice, do both (given by Dieter Rot)</li>
+                <li id="card-65">Feed the recording back out of the medium</li>
+                <li id="card-66">Feedback recordings into an acoustic situation</li>
+                <li id="card-67">Fill every beat with something</li>
+                <li id="card-68">Find a safe part and use it as an anchor</li>
+                <li id="card-69">From nothing to more than nothing</li>
+                <li id="card-70">Get your neck massaged</li>
+                <li id="card-71">Ghost echoes</li>
+                <li id="card-72">Give the game away</li>
+                <li id="card-73">Give way to your worst impulse</li>
+                <li id="card-74">Go outside. Shut the door.</li>
+                <li id="card-75">Go slowly all the way round the outside</li>
+                <li id="card-76">Go to an extreme, move back to a more comfortable place</li>
+                <li id="card-77">Honor thy error as a hidden intention</li>
+                <li id="card-78">How would someone else do it?</li>
+                <li id="card-79">How would you have done it?</li>
+                <li id="card-80">Humanise something free of error</li>
+                <li id="card-81">Idiot glee (?)</li>
+                <li id="card-82">Imagine the piece as a moving chain or caterpillar</li>
+                <li id="card-83">Imagine the piece as a set of disconnected events</li>
+                <li id="card-84">In total darkness, or in a very large room, very quietly</li>
+                <li id="card-85">Infinitesimal gradations</li>
+                <li id="card-86">Intentions -nobility of -humility of -credibility of</li>
+                <li id="card-87">Into the impossible</li>
+                <li id="card-88">Is it finished?</li>
+                <li id="card-89">Is something missing?</li>
+                <li id="card-90">Is the intonation correct?</li>
+                <li id="card-91">Is the style right?</li>
+                <li id="card-92">Is the tuning appropriate?</li>
+                <li id="card-93">Is the tuning intonation correct?</li>
+                <li id="card-94">Is there something missing?</li>
+                <li id="card-95">It is quite possible (after all)</li>
+                <li id="card-96">It is simply a matter or work</li>
+                <li id="card-97">Just carry on</li>
+                <li id="card-98">Left channel, right channel, centre channel</li>
+                <li id="card-99">Listen in total darkness, or in a very large room, very quietly</li>
+                <li id="card-100">Listen to the quiet voice</li>
+                <li id="card-101">Look at a very small object, look at its centre</li>
+                <li id="card-102">Look at the order in which you do things</li>
+                <li id="card-103">Look closely at the most embarrassing details and amplify them</li>
+                <li id="card-104">Lost in useless territory</li>
+                <li id="card-105">Lowest common denominator check -single beat -single note -single riff</li>
+                <li id="card-106">Magnify the most difficult details</li>
+                <li id="card-107">Make a blank valuable by putting it in an exquisite frame</li>
+                <li id="card-108">Make a sudden, destructive unpredictable action; incorporate</li>
+                <li id="card-109">Make an exhaustive list of everything you might do and do the last thing on the list</li>
+                <li id="card-110">Make it more sensual</li>
+                <li id="card-111">Make what's perfect more human</li>
+                <li id="card-112">Mechanicalise something idiosyncratic</li>
+                <li id="card-113">Move towards the unimportant</li>
+                <li id="card-114">Mute and continue</li>
+                <li id="card-115">Not building a wall; making a brick</li>
+                <li id="card-116">Once the search is in progress, something will be found</li>
+                <li id="card-117">Only a part, not the whole</li>
+                <li id="card-118">Only one element of each kind</li>
+                <li id="card-119">Overtly resist change</li>
+                <li id="card-120">Pae White's non-blank graphic metacard</li>
+                <li id="card-121">Put in earplugs</li>
+                <li id="card-122">Question the heroic approach</li>
+                <li id="card-123">Remember quiet evenings</li>
+                <li id="card-124">Remove a restriction</li>
+                <li id="card-125">Remove specifics and convert to ambiguities</li>
+                <li id="card-126">Repetition is a form of change</li>
+                <li id="card-127">Retrace your steps</li>
+                <li id="card-128">Revaluation (a warm feeling)</li>
+                <li id="card-129">Reverse</li>
+                <li id="card-130">Short circuit (example; a man eating peas with the idea that they will improve his virility shovels them straight into his lap)</li>
+                <li id="card-131">Shut the door and listen from outside</li>
+                <li id="card-132">Simple subtraction</li>
+                <li id="card-133">Simply a matter of work</li>
+                <li id="card-134">Slow preparation, fast execution</li>
+                <li id="card-135">Spectrum analysis</li>
+                <li id="card-136">State the problem in words as simply as possible</li>
+                <li id="card-137">Take a break</li>
+                <li id="card-138">Take away the important parts</li>
+                <li id="card-139">Tape your mouth (given by Ritva Saarikko)</li>
+                <li id="card-140">The inconsistency principle</li>
+                <li id="card-141">The most important thing is the thing most easily forgotten</li>
+                <li id="card-142">The tape is now the music</li>
+                <li id="card-143">Think - inside the work -outside the work</li>
+                <li id="card-144">Think of the radio</li>
+                <li id="card-145">Tidy up</li>
+                <li id="card-146">Towards the insignificant</li>
+                <li id="card-147">Trust in the you of now</li>
+                <li id="card-148">Try faking it (from Stewart Brand)</li>
+                <li id="card-149">Turn it upside down</li>
+                <li id="card-150">Twist the spine</li>
+                <li id="card-151">Use 'unqualified' people</li>
+                <li id="card-152">Use an old idea</li>
+                <li id="card-153">Use an unacceptable colour</li>
+                <li id="card-154">Use cliches</li>
+                <li id="card-155">Use fewer notes</li>
+                <li id="card-156">Use filters</li>
+                <li id="card-157">Use something nearby as a model</li>
+                <li id="card-158">Use your own ideas</li>
+                <li id="card-159">Voice your suspicions</li>
+                <li id="card-160">Water</li>
+                <li id="card-161">What are the sections sections of? Imagine a caterpillar moving</li>
+                <li id="card-162">What are you really thinking about just now? Incorporate</li>
+                <li id="card-163">What context would look right?</li>
+                <li id="card-164">What is the reality of the situation?</li>
+                <li id="card-165">What is the simplest solution?</li>
+                <li id="card-166">What mistakes did you make last time?</li>
+                <li id="card-167">What to increase? What to reduce? What to maintain?</li>
+                <li id="card-168">What were you really thinking about just now?</li>
+                <li id="card-169">What would your closest friend do?</li>
+                <li id="card-170">What wouldn't you do?</li>
+                <li id="card-171">When is it for?</li>
+                <li id="card-172">Where is the edge?</li>
+                <li id="card-173">Which parts can be grouped?</li>
+                <li id="card-174">Work at a different speed</li>
+                <li id="card-175">Would anyone want it?</li>
+                <li id="card-176">You are an engineer</li>
+                <li id="card-177">You can only make one dot at a time</li>
+                <li id="card-178">You don't have to be ashamed of using your own ideas</li>
+                <li id="card-179">Your mistake was a hidden intention</li>
             </ul>
-            <a id="info" href="#information" class="info" onClick="function(){return true;}">i</a>
+            <a id="info" href="#/" class="info">i</a>
         </div>
         <script type="text/javascript" charset="utf-8">
+jQuery.noop()
             $(function(){
                 if (window.PalmSystem) {
                     window.PalmSystem.stageReady();
@@ -343,37 +345,43 @@
                         $(".description").hide();
                         $(".click-to-draw").show();
                         $("body").bind("click", function(e){
-                            if(e && e.type == "touchstart"){
-                                $("body").unbind("click");
-                            };
-                            pick_card(e)
+                            if(e && e.target.id != "info"){ 
+                                e.preventDefault();
+                                pick_card(e);
+                            }
                         });
                         pick_card();
                     },
                     pick_card = function(e){
-                        if(e){ e.preventDefault();}
-                        if(e && e.type == "touchstart"){
-                            $("body").unbind("click");
-                        }
-                        if(e && e.target.id == "info"){
+                        var elements = $("li:not(.description):not(.active)"),
+                            randomnumber = Math.floor(Math.random()*elements.length + 1);
+                        document.location.hash = "#/card/"+ randomnumber + "/";
+                    },
+                    app = $.sammy(function() {
+                        this.get('#/card/:number/', function() {
+                            var selector = "#card-" + this.params["number"];
+                            $(".description").hide();
+                            $(".click-to-draw").show();
+                            $("li").removeClass("active");
+                            $(selector).addClass("active");
+                            $("#info").show();
+                        });
+
+                        this.get('#/', function() {
                             $("li").removeClass("active");
                             $(".description").show();
                             $("#info").hide();
                             $(".click-to-draw").hide();
                             $("body").unbind("click");
                             $("body").one("click", starter);
-                            return true;
-                        }
-                        var elements = $("li:not(.description):not(.active)"),
-                            randomnumber = Math.floor(Math.random()*elements.length + 1);
-                        $("li").removeClass("active");
-                        elements.eq(randomnumber).addClass("active");
-                        $("#info").show();
-                };
+                        });
+
+                    });
                 $("body").one("click", starter);
-                window.starter = starter;
-                window.pick_card = pick_card;
+                
                 document.body.onclick = function () {};
+                
+                app.run();
             })
         </script>
     </body>
