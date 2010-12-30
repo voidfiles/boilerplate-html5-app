@@ -1,5 +1,7 @@
 CACHE MANIFEST
 
+# version 1
+
 index.html
 assets/javascripts/jquery.1.4.4.js
 assets/javascripts/underscore.min.js
